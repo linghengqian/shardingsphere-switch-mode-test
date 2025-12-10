@@ -65,7 +65,7 @@ class SimpleTest {
 
     private void initEnvironment(OrderRepository orderRepository) throws SQLException {
         orderRepository.createTableIfNotExistsInMySQL();
-        Awaitility.await().atMost(Duration.ofMinutes(2L)).ignoreExceptions().until(() -> {
+        Awaitility.await().atMost(Duration.ofMinutes(1L)).ignoreExceptions().until(() -> {
             try (Connection connection = logicDataSource.getConnection()) {
                 connection.createStatement().execute("SELECT * FROM t_order");
             }
