@@ -1,0 +1,47 @@
+mode:
+  type: Cluster
+  repository:
+    type: etcd
+    props:
+      namespace: governance-etcd-data-source
+      server-lists: $${fixture.test-native.yaml.mode.cluster.etcd.server-lists::}
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.h2.Driver
+    jdbcUrl: jdbc:h2:mem:cluster_etcd_ds_0;MODE=MYSQL;IGNORECASE=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password:
+  ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.h2.Driver
+    jdbcUrl: jdbc:h2:mem:cluster_etcd_ds_1;MODE=MYSQL;IGNORECASE=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password:
+  ds_2:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.h2.Driver
+    jdbcUrl: jdbc:h2:mem:cluster_etcd_ds_2;MODE=MYSQL;IGNORECASE=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password:
+rules:
+  - !SHARDING
+    tables:
+      t_order:
+        actualDataNodes: <LITERAL>ds_0.t_order, ds_1.t_order, ds_2.t_order
+        keyGenerateStrategy:
+          column: order_id
+          keyGeneratorName: snowflake
+    defaultDatabaseStrategy:
+      standard:
+        shardingColumn: user_id
+        shardingAlgorithmName: inline
+    shardingAlgorithms:
+      inline:
+        type: CLASS_BASED
+        props:
+          strategy: STANDARD
+          algorithmClassName: io.github.linghengqian.ClassBasedInlineShardingAlgorithmFixture
+    keyGenerators:
+      snowflake:
+        type: SNOWFLAKE
