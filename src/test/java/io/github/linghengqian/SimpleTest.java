@@ -3,6 +3,7 @@ package io.github.linghengqian;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.etcd.jetcd.test.EtcdClusterExtension;
+import org.apache.curator.test.TestingServer;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -27,7 +28,8 @@ public class SimpleTest {
     private DataSource logicDataSource;
 
     @Test
-    void assertModes() throws SQLException {
+    void assertModes() throws Exception {
+        this.assertZookeeper();
         this.assertEtcd();
     }
 
@@ -40,6 +42,20 @@ public class SimpleTest {
         logicDataSource = new HikariDataSource(config);
         this.initEnvironment(new OrderRepository(logicDataSource));
         ResourceUtils.closeJdbcDataSource(logicDataSource);
+        System.clearProperty(systemPropKeyPrefix + "server-lists");
+    }
+
+    void assertZookeeper() throws Exception {
+        assertThat(System.getProperty(systemPropKeyPrefix + "server-lists"), is(nullValue()));
+        try (TestingServer testingServer = new TestingServer()) {
+            HikariConfig config = new HikariConfig();
+            config.setDriverClassName("org.apache.shardingsphere.driver.ShardingSphereDriver");
+            config.setJdbcUrl("jdbc:shardingsphere:classpath:zookeeper.yaml?placeholder-type=system_props");
+            System.setProperty(systemPropKeyPrefix + "server-lists", testingServer.getConnectString());
+            logicDataSource = new HikariDataSource(config);
+            this.initEnvironment(new OrderRepository(logicDataSource));
+            ResourceUtils.closeJdbcDataSource(logicDataSource);
+        }
         System.clearProperty(systemPropKeyPrefix + "server-lists");
     }
 
