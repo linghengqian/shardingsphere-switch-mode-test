@@ -7,8 +7,8 @@
 
 ```shell
 vfox add java
-vfox install java@24.0.2-graalce
-vfox use --global java@24.0.2-graalce
+vfox install java@25.0.1-ms
+vfox use --global java@25.0.1-ms
 # Open a new PowerShell 7 terminal
 git clone git@github.com:apache/shardingsphere.git
 cd ./shardingsphere/
@@ -24,7 +24,7 @@ cd ./shardingsphere-switch-mode-test/
 - Log as follows.
 
 ```shell
-PS C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test> ./mvnw -T 1C clean test
+PS C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test> ./mvnw -T 1C clean test         
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/C:/Users/lingh/.m2/wrapper/dists/apache-maven-3.9.11/03d7e36a140982eea48e22c1dcac01d8862b2550b2939e09a0809bbc5182a5bc/lib/guice-5.1.0-classes.jar)
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
@@ -52,7 +52,7 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] 
 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ shardingsphere-switch-mode-test ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 1 source file with javac [debug release 24] to target\test-classes
+[INFO] Compiling 1 source file with javac [debug release 25] to target\test-classes
 [INFO] 
 [INFO] --- surefire:3.2.5:test (default-test) @ shardingsphere-switch-mode-test ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -65,7 +65,7 @@ WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by io.netty.util.internal.PlatformDependent0$4 (file:/C:/Users/lingh/.m2/repository/io/netty/netty-common/4.1.103.Final/netty-common-4.1.103.Final.jar)
 WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$4
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.72 s -- in io.github.linghengqian.SimpleTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.44 s -- in io.github.linghengqian.SimpleTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -74,7 +74,7 @@ WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  23.389 s (Wall Clock)
-[INFO] Finished at: 2025-12-10T17:25:35+08:00
+[INFO] Total time:  22.732 s (Wall Clock)
+[INFO] Finished at: 2025-12-10T17:27:44+08:00
 [INFO] ------------------------------------------------------------------------
 ```
