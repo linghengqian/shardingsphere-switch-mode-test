@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Duration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -44,7 +45,7 @@ class SimpleTest {
         config.setJdbcUrl("jdbc:shardingsphere:classpath:etcd.yaml?placeholder-type=system_props");
         System.setProperty(systemPropKeyPrefix + "server-lists", CLUSTER.clientEndpoints().getFirst().toString());
         logicDataSource = new HikariDataSource(config);
-        this.initEnvironment(new OrderRepository(logicDataSource));
+        this.initEnvironment(logicDataSource);
         this.closeJdbcDataSource(logicDataSource);
         System.clearProperty(systemPropKeyPrefix + "server-lists");
     }
@@ -57,21 +58,31 @@ class SimpleTest {
             config.setJdbcUrl("jdbc:shardingsphere:classpath:zookeeper.yaml?placeholder-type=system_props");
             System.setProperty(systemPropKeyPrefix + "server-lists", testingServer.getConnectString());
             logicDataSource = new HikariDataSource(config);
-            this.initEnvironment(new OrderRepository(logicDataSource));
+            this.initEnvironment(logicDataSource);
             this.closeJdbcDataSource(logicDataSource);
         }
         System.clearProperty(systemPropKeyPrefix + "server-lists");
     }
 
-    private void initEnvironment(OrderRepository orderRepository) throws SQLException {
-        orderRepository.createTableIfNotExistsInMySQL();
+    private void initEnvironment(DataSource logicDataSource) throws SQLException {
+        try (Connection connection = logicDataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate("""
+                    CREATE TABLE IF NOT EXISTS t_order\
+                    (order_id BIGINT NOT NULL AUTO_INCREMENT,order_type INT(11),\
+                    user_id INT NOT NULL,address_id BIGINT NOT NULL,status VARCHAR(50),\
+                    PRIMARY KEY (order_id))""");
+        }
         Awaitility.await().atMost(Duration.ofMinutes(1L)).ignoreExceptions().until(() -> {
             try (Connection connection = logicDataSource.getConnection()) {
                 connection.createStatement().execute("SELECT * FROM t_order");
             }
             return true;
         });
-        orderRepository.truncateTable();
+        try (Connection connection = logicDataSource.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate("TRUNCATE TABLE t_order");
+        }
     }
 
     private void closeJdbcDataSource(final DataSource logicDataSource) throws SQLException {
