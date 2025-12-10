@@ -28,17 +28,16 @@ class SimpleTest {
     @RegisterExtension
     public static final EtcdClusterExtension CLUSTER = EtcdClusterExtension.builder().withNodes(1).withMountDirectory(false).build();
 
-    private final String systemPropKeyPrefix = "fixture.test-native.";
-
     private DataSource logicDataSource;
 
     @Test
     void assertModes() throws Exception {
-        this.assertZookeeper();
         this.assertEtcd();
+        this.assertZookeeper();
     }
 
     void assertEtcd() throws SQLException {
+        String systemPropKeyPrefix = "fixture.test-native.etcd.";
         assertThat(System.getProperty(systemPropKeyPrefix + "server-lists"), is(nullValue()));
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.apache.shardingsphere.driver.ShardingSphereDriver");
@@ -51,6 +50,7 @@ class SimpleTest {
     }
 
     void assertZookeeper() throws Exception {
+        String systemPropKeyPrefix = "fixture.test-native.zookeeper.";
         assertThat(System.getProperty(systemPropKeyPrefix + "server-lists"), is(nullValue()));
         try (TestingServer testingServer = new TestingServer()) {
             HikariConfig config = new HikariConfig();

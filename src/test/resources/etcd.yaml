@@ -3,8 +3,8 @@ mode:
   repository:
     type: etcd
     props:
-      namespace: governance-data-source
-      server-lists: $${fixture.test-native.server-lists::}
+      namespace: governance-data-source-etcd
+      server-lists: $${fixture.test-native.etcd.server-lists::}
 dataSources:
   ds_0:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
