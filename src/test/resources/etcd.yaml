@@ -4,7 +4,7 @@ mode:
     type: etcd
     props:
       namespace: governance-etcd-data-source
-      server-lists: $${fixture.test-native.yaml.mode.cluster.etcd.server-lists::}
+      server-lists: $${fixture.test-native.server-lists::}
 dataSources:
   ds_0:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
@@ -38,10 +38,10 @@ rules:
         shardingAlgorithmName: inline
     shardingAlgorithms:
       inline:
-        type: CLASS_BASED
+        type: INLINE
         props:
-          strategy: STANDARD
-          algorithmClassName: io.github.linghengqian.ClassBasedInlineShardingAlgorithmFixture
+          algorithm-expression: ds_${user_id % 2}
+          allow-range-query-with-inline-sharding: false
     keyGenerators:
       snowflake:
         type: SNOWFLAKE
