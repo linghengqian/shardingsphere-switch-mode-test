@@ -15,7 +15,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.Duration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -74,10 +73,7 @@ class SimpleTest {
             this.doSql(logicDataSource, "SELECT * FROM t_order");
             return true;
         });
-        try (Connection connection = logicDataSource.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate("TRUNCATE TABLE t_order");
-        }
+        this.doSql(logicDataSource, "TRUNCATE TABLE t_order");
     }
 
     private void doSql(DataSource logicDataSource, String sql) throws SQLException {
