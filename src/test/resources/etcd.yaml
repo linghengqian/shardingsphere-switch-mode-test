@@ -3,7 +3,7 @@ mode:
   repository:
     type: etcd
     props:
-      namespace: governance-etcd-data-source
+      namespace: governance-data-source
       server-lists: $${fixture.test-native.server-lists::}
 dataSources:
   ds_0:

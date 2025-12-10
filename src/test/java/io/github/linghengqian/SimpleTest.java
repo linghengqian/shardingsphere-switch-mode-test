@@ -4,6 +4,10 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.etcd.jetcd.test.EtcdClusterExtension;
 import org.apache.curator.test.TestingServer;
+import org.apache.shardingsphere.database.connector.core.DefaultDatabase;
+import org.apache.shardingsphere.driver.jdbc.core.connection.ShardingSphereConnection;
+import org.apache.shardingsphere.infra.metadata.database.resource.unit.StorageUnit;
+import org.apache.shardingsphere.mode.manager.ContextManager;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -18,7 +22,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
 @SuppressWarnings("SqlNoDataSourceInspection")
-public class SimpleTest {
+class SimpleTest {
 
     @RegisterExtension
     public static final EtcdClusterExtension CLUSTER = EtcdClusterExtension.builder().withNodes(1).withMountDirectory(false).build();
@@ -41,7 +45,7 @@ public class SimpleTest {
         System.setProperty(systemPropKeyPrefix + "server-lists", CLUSTER.clientEndpoints().getFirst().toString());
         logicDataSource = new HikariDataSource(config);
         this.initEnvironment(new OrderRepository(logicDataSource));
-        ResourceUtils.closeJdbcDataSource(logicDataSource);
+        this.closeJdbcDataSource(logicDataSource);
         System.clearProperty(systemPropKeyPrefix + "server-lists");
     }
 
@@ -54,7 +58,7 @@ public class SimpleTest {
             System.setProperty(systemPropKeyPrefix + "server-lists", testingServer.getConnectString());
             logicDataSource = new HikariDataSource(config);
             this.initEnvironment(new OrderRepository(logicDataSource));
-            ResourceUtils.closeJdbcDataSource(logicDataSource);
+            this.closeJdbcDataSource(logicDataSource);
         }
         System.clearProperty(systemPropKeyPrefix + "server-lists");
     }
@@ -68,5 +72,25 @@ public class SimpleTest {
             return true;
         });
         orderRepository.truncateTable();
+    }
+
+    private void closeJdbcDataSource(final DataSource logicDataSource) throws SQLException {
+        try (Connection connection = logicDataSource.getConnection()) {
+            ContextManager contextManager = connection.unwrap(ShardingSphereConnection.class).getContextManager();
+            contextManager.getStorageUnits(DefaultDatabase.LOGIC_NAME)
+                    .values()
+                    .stream()
+                    .map(StorageUnit::getDataSource)
+                    .forEach(realDataSource -> {
+                        if (realDataSource instanceof AutoCloseable) {
+                            try {
+                                ((AutoCloseable) realDataSource).close();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                    });
+            contextManager.close();
+        }
     }
 }

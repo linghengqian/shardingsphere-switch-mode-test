@@ -11,21 +11,4 @@ import java.sql.SQLException;
 
 public class ResourceUtils {
 
-    public static void closeJdbcDataSource(final DataSource dataSource) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            ContextManager contextManager = connection.unwrap(ShardingSphereConnection.class).getContextManager();
-            contextManager.getStorageUnits(DefaultDatabase.LOGIC_NAME).values().stream().map(StorageUnit::getDataSource).forEach(ResourceUtils::close);
-            contextManager.close();
-        }
-    }
-
-    private static void close(final DataSource dataSource) {
-        if (dataSource instanceof AutoCloseable) {
-            try {
-                ((AutoCloseable) dataSource).close();
-            } catch (final Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-    }
 }
