@@ -17,14 +17,14 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.14.1</version>
+                <version>6.0.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
-                <version>1.21.3</version>
+                <version>2.0.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,6 +45,12 @@
         </dependency>
 
         <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-grpc</artifactId>
+            <version>4.5.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>4.3.0</version>
@@ -54,12 +60,6 @@
             <groupId>io.etcd</groupId>
             <artifactId>jetcd-test</artifactId>
             <version>0.8.6</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-grpc</artifactId>
-            <version>4.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -82,7 +82,7 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
