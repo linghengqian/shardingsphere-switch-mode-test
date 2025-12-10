@@ -65,7 +65,7 @@ WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by io.netty.util.internal.PlatformDependent0$4 (file:/C:/Users/lingh/.m2/repository/io/netty/netty-common/4.1.103.Final/netty-common-4.1.103.Final.jar)
 WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$4
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.10 s -- in io.github.linghengqian.SimpleTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.72 s -- in io.github.linghengqian.SimpleTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -74,7 +74,7 @@ WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  22.307 s (Wall Clock)
-[INFO] Finished at: 2025-12-10T17:14:32+08:00
+[INFO] Total time:  23.389 s (Wall Clock)
+[INFO] Finished at: 2025-12-10T17:25:35+08:00
 [INFO] ------------------------------------------------------------------------
 ```
