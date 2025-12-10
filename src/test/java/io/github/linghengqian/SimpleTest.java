@@ -74,6 +74,9 @@ class SimpleTest {
             return true;
         });
         this.doSql(logicDataSource, "TRUNCATE TABLE t_order");
+        this.doSql(logicDataSource, "INSERT INTO t_order (user_id, order_type, address_id, status) VALUES (1, 0, 1, 'INSERT_TEST')");
+        this.doSql(logicDataSource, "DELETE FROM t_order WHERE user_id=1");
+        this.doSql(logicDataSource, "DROP TABLE IF EXISTS t_order");
     }
 
     private void doSql(DataSource logicDataSource, String sql) throws SQLException {
