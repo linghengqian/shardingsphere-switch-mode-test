@@ -65,23 +65,24 @@ class SimpleTest {
     }
 
     private void initEnvironment(DataSource logicDataSource) throws SQLException {
-        try (Connection connection = logicDataSource.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate("""
-                    CREATE TABLE IF NOT EXISTS t_order\
-                    (order_id BIGINT NOT NULL AUTO_INCREMENT,order_type INT(11),\
-                    user_id INT NOT NULL,address_id BIGINT NOT NULL,status VARCHAR(50),\
-                    PRIMARY KEY (order_id))""");
-        }
+        this.doSql(logicDataSource, """
+                CREATE TABLE IF NOT EXISTS t_order\
+                (order_id BIGINT NOT NULL AUTO_INCREMENT,order_type INT(11),\
+                user_id INT NOT NULL,address_id BIGINT NOT NULL,status VARCHAR(50),\
+                PRIMARY KEY (order_id))""");
         Awaitility.await().atMost(Duration.ofMinutes(1L)).ignoreExceptions().until(() -> {
-            try (Connection connection = logicDataSource.getConnection()) {
-                connection.createStatement().execute("SELECT * FROM t_order");
-            }
+            this.doSql(logicDataSource, "SELECT * FROM t_order");
             return true;
         });
         try (Connection connection = logicDataSource.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate("TRUNCATE TABLE t_order");
+        }
+    }
+
+    private void doSql(DataSource logicDataSource, String sql) throws SQLException {
+        try (Connection connection = logicDataSource.getConnection()) {
+            connection.createStatement().execute(sql);
         }
     }
 
