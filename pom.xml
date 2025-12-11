@@ -110,57 +110,15 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <includes>
-                        <include>io.github.linghengqian.**</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
                 <version>0.11.3</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <skipNativeTests>true</skipNativeTests>
                     <agent>
                         <enabled>true</enabled>
-                        <defaultMode>Standard</defaultMode>
-                        <metadataCopy>
-                            <disabledStages>
-                                <stage>main</stage>
-                            </disabledStages>
-                            <merge>false</merge>
-                            <outputDirectory>${user.dir}/src/test/resources/META-INF/native-image/io.github.linghengqian/shardingsphere-switch-mode-test/</outputDirectory>
-                        </metadataCopy>
                     </agent>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>merge-agent-files-in-integration-test</id>
-                        <goals>
-                            <goal>merge-agent-files</goal>
-                        </goals>
-                        <phase>integration-test</phase>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
