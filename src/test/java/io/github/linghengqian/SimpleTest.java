@@ -88,8 +88,14 @@ class SimpleTest {
         this.doSql(logicDataSource, "TRUNCATE TABLE t_order_item");
         this.doSql(logicDataSource, "TRUNCATE TABLE t_address");
         this.doSql(logicDataSource, "INSERT INTO t_order (user_id, order_type, address_id, status) VALUES (1, 0, 1, 'INSERT_TEST')");
+        this.doSql(logicDataSource, "INSERT INTO t_order_item (order_id, user_id, phone, status) VALUES (114514, 1, '13800000001', 'INSERT_TEST')");
+        this.doSql(logicDataSource, "INSERT INTO t_address (address_id, address_name) VALUES (1, 'address_test_1')");
         this.doSql(logicDataSource, "DELETE FROM t_order WHERE user_id=1");
+        this.doSql(logicDataSource, "DELETE FROM t_order WHERE user_id=1");
+        this.doSql(logicDataSource, "DELETE FROM t_order WHERE address_id=1");
         this.doSql(logicDataSource, "DROP TABLE IF EXISTS t_order");
+        this.doSql(logicDataSource, "DROP TABLE IF EXISTS t_order_item");
+        this.doSql(logicDataSource, "DROP TABLE IF EXISTS t_address");
     }
 
     private void doSql(DataSource logicDataSource, String sql) throws SQLException {
