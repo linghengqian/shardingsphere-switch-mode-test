@@ -40,7 +40,7 @@ class SimpleTest {
         assertThat(System.getProperty(systemPropKeyPrefix + "server-lists"), is(nullValue()));
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.apache.shardingsphere.driver.ShardingSphereDriver");
-        config.setJdbcUrl("jdbc:shardingsphere:classpath:etcd.yaml?placeholder-type=system_props");
+        config.setJdbcUrl("jdbc:shardingsphere:classpath:test-native/yaml/jdbc/modes/cluster/etcd.yaml?placeholder-type=system_props");
         System.setProperty(systemPropKeyPrefix + "server-lists", CLUSTER.clientEndpoints().getFirst().toString());
         logicDataSource = new HikariDataSource(config);
         this.initEnvironment(logicDataSource);
@@ -54,7 +54,7 @@ class SimpleTest {
         try (TestingServer testingServer = new TestingServer()) {
             HikariConfig config = new HikariConfig();
             config.setDriverClassName("org.apache.shardingsphere.driver.ShardingSphereDriver");
-            config.setJdbcUrl("jdbc:shardingsphere:classpath:zookeeper.yaml?placeholder-type=system_props");
+            config.setJdbcUrl("jdbc:shardingsphere:classpath:test-native/yaml/jdbc/modes/cluster/zookeeper.yaml?placeholder-type=system_props");
             System.setProperty(systemPropKeyPrefix + "server-lists", testingServer.getConnectString());
             logicDataSource = new HikariDataSource(config);
             this.initEnvironment(logicDataSource);
