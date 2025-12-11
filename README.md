@@ -52,7 +52,10 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] 
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ shardingsphere-switch-mode-test ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 2 source files with javac [debug release 25] to target\test-classes
+[INFO] Compiling 2 source files with javac [debug release 8] to target\test-classes
+[WARNING] 源值 8 已过时，将在未来发行版中删除
+[WARNING] 目标值 8 已过时，将在未来发行版中删除
+[WARNING] 要隐藏有关已过时选项的警告, 请使用 -Xlint:-options。
 [INFO] 
 [INFO] --- surefire:3.2.5:test (default-test) @ shardingsphere-switch-mode-test ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -65,7 +68,7 @@ WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by io.netty.util.internal.PlatformDependent0$4 (file:/C:/Users/lingh/.m2/repository/io/netty/netty-common/4.1.103.Final/netty-common-4.1.103.Final.jar)
 WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$4
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.24 s -- in io.github.linghengqian.SimpleTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.60 s -- in io.github.linghengqian.SimpleTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -74,7 +77,7 @@ WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  22.878 s (Wall Clock)
-[INFO] Finished at: 2025-12-11T16:51:32+08:00
+[INFO] Total time:  24.112 s (Wall Clock)
+[INFO] Finished at: 2025-12-11T17:07:24+08:00
 [INFO] ------------------------------------------------------------------------
 ```
