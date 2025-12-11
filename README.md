@@ -18,13 +18,13 @@ cd ../
 
 git clone git@github.com:linghengqian/shardingsphere-switch-mode-test.git
 cd ./shardingsphere-switch-mode-test/
-./mvnw -T 1C clean test
+./mvnw -T 1C clean verify
 ```
 
 - Log as follows.
 
 ```shell
-PS C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test> ./mvnw -T 1C clean test
+PS C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test> ./mvnw -T 1C clean verify
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/C:/Users/lingh/.m2/wrapper/dists/apache-maven-3.9.11/03d7e36a140982eea48e22c1dcac01d8862b2550b2939e09a0809bbc5182a5bc/lib/guice-5.1.0-classes.jar)
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
@@ -57,7 +57,14 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [WARNING] 目标值 8 已过时，将在未来发行版中删除
 [WARNING] 要隐藏有关已过时选项的警告, 请使用 -Xlint:-options。
 [INFO] 
-[INFO] --- surefire:3.2.5:test (default-test) @ shardingsphere-switch-mode-test ---
+[INFO] --- surefire:3.5.1:test (default-test) @ shardingsphere-switch-mode-test ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ shardingsphere-switch-mode-test ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test\target\shardingsphere-switch-mode-test-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- failsafe:3.2.5:integration-test (default) @ shardingsphere-switch-mode-test ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
 [INFO] 
 [INFO] -------------------------------------------------------
@@ -68,16 +75,18 @@ WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by io.netty.util.internal.PlatformDependent0$4 (file:/C:/Users/lingh/.m2/repository/io/netty/netty-common/4.1.103.Final/netty-common-4.1.103.Final.jar)
 WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$4
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.60 s -- in io.github.linghengqian.SimpleTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.17 s -- in io.github.linghengqian.SimpleTest
 [INFO] 
 [INFO] Results:
 [INFO] 
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] 
+[INFO] 
+[INFO] --- failsafe:3.2.5:verify (default) @ shardingsphere-switch-mode-test ---
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  24.112 s (Wall Clock)
-[INFO] Finished at: 2025-12-11T17:07:24+08:00
+[INFO] Total time:  26.566 s (Wall Clock)
+[INFO] Finished at: 2025-12-11T20:15:19+08:00
 [INFO] ------------------------------------------------------------------------
 ```
