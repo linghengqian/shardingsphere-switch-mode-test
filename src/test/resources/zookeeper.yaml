@@ -38,10 +38,10 @@ rules:
         shardingAlgorithmName: inline
     shardingAlgorithms:
       inline:
-        type: INLINE
+        type: CLASS_BASED
         props:
-          algorithm-expression: ds_${user_id % 2}
-          allow-range-query-with-inline-sharding: false
+          strategy: STANDARD
+          algorithmClassName: io.github.linghengqian.ClassBasedInlineShardingAlgorithmFixture
     keyGenerators:
       snowflake:
         type: SNOWFLAKE
