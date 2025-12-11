@@ -41,7 +41,7 @@ class SimpleTest {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.apache.shardingsphere.driver.ShardingSphereDriver");
         config.setJdbcUrl("jdbc:shardingsphere:classpath:test-native/yaml/jdbc/modes/cluster/etcd.yaml?placeholder-type=system_props");
-        System.setProperty(systemPropKeyPrefix + "server-lists", CLUSTER.clientEndpoints().getFirst().toString());
+        System.setProperty(systemPropKeyPrefix + "server-lists", CLUSTER.clientEndpoints().get(0).toString());
         logicDataSource = new HikariDataSource(config);
         this.initEnvironment(logicDataSource);
         this.closeJdbcDataSource(logicDataSource);
