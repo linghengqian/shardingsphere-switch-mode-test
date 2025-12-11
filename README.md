@@ -30,6 +30,7 @@ WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.i
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
 WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] Scanning for projects...
+[INFO] Found GraalVM installation from GRAALVM_HOME variable.
 [INFO] 
 [INFO] Using the MultiThreadedBuilder implementation with a thread count of 16
 [INFO] 
@@ -58,6 +59,7 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [WARNING] 要隐藏有关已过时选项的警告, 请使用 -Xlint:-options。
 [INFO] 
 [INFO] --- surefire:3.5.1:test (default-test) @ shardingsphere-switch-mode-test ---
+[WARNING]  Parameter 'systemProperties' is deprecated: Use systemPropertyVariables instead.
 [INFO] Tests are skipped.
 [INFO] 
 [INFO] --- jar:3.4.1:jar (default-jar) @ shardingsphere-switch-mode-test ---
@@ -65,28 +67,90 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] Building jar: C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test\target\shardingsphere-switch-mode-test-1.0-SNAPSHOT.jar
 [INFO] 
 [INFO] --- failsafe:3.2.5:integration-test (default) @ shardingsphere-switch-mode-test ---
+[WARNING]  Parameter 'systemProperties' is deprecated: Use systemPropertyVariables instead.
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
 [INFO] 
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
+com.oracle.svm.configure.trace.AccessAdvisor: Warning: Observed unexpected JNI call to GetStaticMethodID (map(size=7, {(tracer,jni),(function,GetStaticMethodID),(class,java.lang.Boolean),(declaring_class,java.lang.Boolean),(caller_class,jdk.internal.loader.NativeLibraries$NativeLibraryImpl),(result,true),(args,[getBoolean, (Ljava/lang/String;)Z])})). Tracing all subsequent JNI accesses.
 [INFO] Running io.github.linghengqian.SimpleTest
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by io.netty.util.internal.PlatformDependent0$4 (file:/C:/Users/lingh/.m2/repository/io/netty/netty-common/4.1.103.Final/netty-common-4.1.103.Final.jar)
 WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$4
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.17 s -- in io.github.linghengqian.SimpleTest
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 120.8 s <<< FAILURE! -- in io.github.linghengqian.SimpleTest
+[ERROR] io.github.linghengqian.SimpleTest.assertModes -- Time elapsed: 108.9 s <<< ERROR!
+org.awaitility.core.ConditionTimeoutException: Condition with Lambda expression in io.github.linghengqian.SimpleTest was not fulfilled within 1 minutes.
+        at org.awaitility.core.ConditionAwaiter.await(ConditionAwaiter.java:167)
+        at org.awaitility.core.CallableCondition.await(CallableCondition.java:78)
+        at org.awaitility.core.CallableCondition.await(CallableCondition.java:26)
+        at org.awaitility.core.ConditionFactory.until(ConditionFactory.java:1160)
+        at org.awaitility.core.ConditionFactory.until(ConditionFactory.java:1129)
+        at io.github.linghengqian.SimpleTest.initEnvironment(SimpleTest.java:70)
+        at io.github.linghengqian.SimpleTest.assertZookeeper(SimpleTest.java:60)
+        at io.github.linghengqian.SimpleTest.assertModes(SimpleTest.java:35)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+        at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+        at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+Caused by: org.apache.shardingsphere.infra.exception.kernel.metadata.TableNotFoundException: Table or view 't_order' does not exist.
+        at org.apache.shardingsphere.infra.binder.engine.segment.dml.from.type.SimpleTableSegmentBinder.lambda$checkTableExists$7(SimpleTableSegmentBinder.java:179)
+        at org.apache.shardingsphere.infra.exception.ShardingSpherePreconditions.checkState(ShardingSpherePreconditions.java:44)
+        at org.apache.shardingsphere.infra.binder.engine.segment.dml.from.type.SimpleTableSegmentBinder.checkTableExists(SimpleTableSegmentBinder.java:179)
+        at org.apache.shardingsphere.infra.binder.engine.segment.dml.from.type.SimpleTableSegmentBinder.bind(SimpleTableSegmentBinder.java:94)
+        at org.apache.shardingsphere.infra.binder.engine.segment.dml.from.TableSegmentBinder.bind(TableSegmentBinder.java:57)
+        at org.apache.shardingsphere.infra.binder.engine.statement.dml.SelectStatementBinder.lambda$bind$1(SelectStatementBinder.java:72)
+        at java.base/java.util.Optional.map(Optional.java:260)
+        at org.apache.shardingsphere.infra.binder.engine.statement.dml.SelectStatementBinder.bind(SelectStatementBinder.java:72)
+        at org.apache.shardingsphere.infra.binder.engine.type.DMLStatementBindEngine.bind(DMLStatementBindEngine.java:45)
+        at org.apache.shardingsphere.infra.binder.engine.SQLBindEngine.bindSQLStatement(SQLBindEngine.java:73)
+        at org.apache.shardingsphere.infra.binder.engine.SQLBindEngine.bind(SQLBindEngine.java:59)
+        at org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSphereStatement.createQueryContext(ShardingSphereStatement.java:260)
+        at org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSphereStatement.execute(ShardingSphereStatement.java:247)
+        at org.apache.shardingsphere.driver.jdbc.core.statement.ShardingSphereStatement.execute(ShardingSphereStatement.java:195)
+        at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+        at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+        at io.github.linghengqian.SimpleTest.doSql(SimpleTest.java:92)
+        at io.github.linghengqian.SimpleTest.lambda$initEnvironment$0(SimpleTest.java:71)
+        at org.awaitility.core.CallableCondition$ConditionEvaluationWrapper.eval(CallableCondition.java:99)
+        at org.awaitility.core.ConditionAwaiter$ConditionPoller.call(ConditionAwaiter.java:248)
+        at org.awaitility.core.ConditionAwaiter$ConditionPoller.call(ConditionAwaiter.java:235)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+        at java.base/java.lang.Thread.run(Thread.java:1474)
+
 [INFO] 
 [INFO] Results:
 [INFO] 
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[ERROR] Errors: 
+[ERROR]   SimpleTest.assertModes:35->assertZookeeper:60->initEnvironment:70 ? ConditionTimeout Condition with Lambda expression in io.github.linghengqian.SimpleTest was not fulfilled within 1 minutes.                                                                                                                                        
 [INFO] 
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- native:0.11.3:merge-agent-files (merge-agent-files-in-integration-test) @ shardingsphere-switch-mode-test ---
+[WARNING] No jdk toolchain configuration found
+[INFO] Merging agent 1 files into C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test\target\native\agent-output\test
+[INFO] 
+[INFO] --- native:0.11.3:merge-agent-files (merge-agent-files-in-integration-test) @ shardingsphere-switch-mode-test ---
 [INFO] 
 [INFO] --- failsafe:3.2.5:verify (default) @ shardingsphere-switch-mode-test ---
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
+[INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  26.566 s (Wall Clock)
-[INFO] Finished at: 2025-12-11T20:15:19+08:00
+[INFO] Total time:  02:10 min (Wall Clock)
+[INFO] Finished at: 2025-12-11T22:07:32+08:00
 [INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-failsafe-plugin:3.2.5:verify (default) on project shardingsphere-switch-mode-test: 
+[ERROR] 
+[ERROR] Please refer to C:\Users\lingh\IdeaProjects\shardingsphere-switch-mode-test\target\failsafe-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 ```
