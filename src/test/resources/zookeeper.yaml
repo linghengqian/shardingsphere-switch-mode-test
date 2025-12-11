@@ -32,6 +32,11 @@ rules:
         keyGenerateStrategy:
           column: order_id
           keyGeneratorName: snowflake
+      t_order_item:
+        actualDataNodes: <LITERAL>ds_0.t_order_item, ds_1.t_order_item, ds_2.t_order_item
+        keyGenerateStrategy:
+          column: order_item_id
+          keyGeneratorName: snowflake
     defaultDatabaseStrategy:
       standard:
         shardingColumn: user_id
@@ -45,3 +50,9 @@ rules:
     keyGenerators:
       snowflake:
         type: SNOWFLAKE
+    auditors:
+      sharding_key_required_auditor:
+        type: DML_SHARDING_CONDITIONS
+  - !BROADCAST
+    tables:
+      - t_address
