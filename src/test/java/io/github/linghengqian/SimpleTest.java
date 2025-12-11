@@ -36,7 +36,7 @@ class SimpleTest {
     }
 
     void assertEtcd() throws SQLException {
-        String systemPropKeyPrefix = "fixture.test-native.etcd.";
+        String systemPropKeyPrefix = "fixture.test-native.yaml.mode.cluster.etcd.";
         assertThat(System.getProperty(systemPropKeyPrefix + "server-lists"), is(nullValue()));
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.apache.shardingsphere.driver.ShardingSphereDriver");
@@ -49,7 +49,7 @@ class SimpleTest {
     }
 
     void assertZookeeper() throws Exception {
-        String systemPropKeyPrefix = "fixture.test-native.zookeeper.";
+        String systemPropKeyPrefix = "fixture.test-native.yaml.mode.cluster.zookeeper.";
         assertThat(System.getProperty(systemPropKeyPrefix + "server-lists"), is(nullValue()));
         try (TestingServer testingServer = new TestingServer()) {
             HikariConfig config = new HikariConfig();
